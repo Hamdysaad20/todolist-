@@ -240,7 +240,7 @@ export default function Home() {
       {maxNumber == 0 ? null : (
         <footer className={styles.footer}>
           {todos.length < 1 ? (
-            <p class={styles.putTodoCallToAction}>Put your todos !</p>
+            <p className={styles.putTodoCallToAction}>Put your todos !</p>
           ) : null}
           {todos.length > 0 && (
             <div className={styles.footerContent}>
