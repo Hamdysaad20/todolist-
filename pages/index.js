@@ -12,7 +12,7 @@ export default function Home() {
   const [id, setId] = useState(0);
   const [editTodo, setEditTodo] = useState("");
   const [editId, setEditId] = useState(0);
-  let [maxNumber, setMaxNumber] = useState(1);
+  let [maxNumber, setMaxNumber] = useState(0);
   const inputRef = useRef();
   const inputEditRef = useRef();
 
@@ -168,11 +168,11 @@ export default function Home() {
           {maxNumber}
         </span>{" "}
       </h1>
-      <h2>
+      <h4 style={{ color: "gray" }}>
         You Have{" "}
         <span styles={{ color: "red" }}>{maxNumber - todos.length}</span> Todos
         Left
-      </h2>
+      </h4>
       <form onSubmit={handleSubmit}>
         {maxNumber == 0 ? (
           <div className={styles.warning}>
@@ -236,30 +236,38 @@ export default function Home() {
           ))}
         </ul>
       </section>
-      <footer className={styles.footer}>
-        {todos.length > 0 && (
-          <div className={styles.footerContent}>
-            <span>
-              <strong>{todos.filter((todo) => !todo.completed).length}</strong>{" "}
-              items left
-            </span>
 
-            <div className={styles.footerButtonsdiv}>
-              <button
-                className={styles.btnFooter}
-                onClick={handleClearCompletedChange}>
-                Clear completed
-              </button>
+      {maxNumber == 0 ? null : (
+        <footer className={styles.footer}>
+          {todos.length < 1 ? (
+            <p class={styles.putTodoCallToAction}>Put your todos !</p>
+          ) : null}
+          {todos.length > 0 && (
+            <div className={styles.footerContent}>
+              <span>
+                <strong>
+                  {todos.filter((todo) => !todo.completed).length}
+                </strong>{" "}
+                items left
+              </span>
 
-              <button
-                className={styles.btnFooter}
-                onClick={handleClearAllChange}>
-                Clear all
-              </button>
+              <div className={styles.footerButtonsdiv}>
+                <button
+                  className={styles.btnFooter}
+                  onClick={handleClearCompletedChange}>
+                  Clear completed
+                </button>
+
+                <button
+                  className={styles.btnFooter}
+                  onClick={handleClearAllChange}>
+                  Clear all
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-      </footer>
+          )}
+        </footer>
+      )}
       {edit && (
         <form onSubmit={handleEditSubmit}>
           <input
